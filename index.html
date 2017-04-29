@@ -7,7 +7,7 @@
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </head>
-<body>
+<body onload="listMovies()">
 
 <form onsubmit="event.preventDefault(); addMovie();">
     <label for="movie-input">Movie name</label>
@@ -16,16 +16,18 @@
 </form>
 
 <table>
+    <tbody id="movie-list">
     <tr>
         <th>Movie</th>
-        <th>Watched</th>
         <th>Rating</th>
+        <th>Watched</th>
     </tr>
     <tr>
         <td>Batman</td>
-        <td>yes</td>
         <td>5</td>
+        <td>yes</td>
     </tr>
+    </tbody>
 </table>
 
 
