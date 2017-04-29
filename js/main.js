@@ -1,23 +1,23 @@
 let movieListManipulator = (function () {
     let movies = new Map();
-    let counter = 0;
+    let id = 0;
 
-    return{
+    return {
         addMovie: (item) => {
-            movies.set(counter, item);
-            counter++;
-            },
+            movies.set(id, item);
+            id++;
+        },
         deleteMovie: (key) => movies.delete(key),
-        toString:() => console.log(movies.values()),
+        toString: () => console.log(movies.values()),
         mapKeys: () => console.log(movies.keys()),
-        getMovies: () => {return movies} // returns movies
+        getMovies: () => movies // returns movies
     }
 })();
 
 function listMovies() {
     let tbody = document.getElementById("movie-list");
 
-    tbody.innerHTML = "";// clear table child elements
+    tbody.innerHTML = ""; // clear table child elements
 
 
     movieListManipulator.getMovies().forEach(function (value, key) {
@@ -29,6 +29,10 @@ function listMovies() {
         deleteButton.innerText = "Remove";
 
         deleteButton.onclick = function () {
+            let id = this.parentNode.parentNode.id;
+
+            movieListManipulator.deleteMovie(Number(id));
+
             this.parentNode.parentNode.remove();
         };
 
@@ -36,6 +40,7 @@ function listMovies() {
 
         tdMovie.innerText = value.movieName;
         tdRating.innerText = value.rating;
+        tr.id = key;
 
         tr.appendChild(tdMovie);
         tr.appendChild(tdRating);
@@ -45,10 +50,7 @@ function listMovies() {
 
         console.log(`${key} = ${value.movieName}`)
 
-
     });
-
-
 
 
 }
