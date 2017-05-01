@@ -1,0 +1,87 @@
+.my-navbar {
+    background: #3498db;
+    padding: 30px 15px;
+    border-color: transparent;
+    border-bottom:10px solid #2980b9;
+    border-radius: 0;
+}
+
+.my-navbar .navbar-brand{
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 55px;
+}
+
+.my-navbar .navbar-brand:hover{
+    color: #AACCFF;
+}
+
+.my-navbar .nav-links li a{
+    color: white;
+    font-size: 25px;
+    margin-left: 15px;
+}
+
+.my-navbar .nav-links li a:hover{
+    color: #AACCFF;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    float:left;
+    color:#ecf0f1;
+    font-size:55px;
+    margin-top:20px;
+    margin-left:50px;
+    font-family: 'Montserrat', sans-serif;
+}
+#navbar{
+    height:100px;
+    width:100%;
+    border-bottom:10px solid #2980b9;
+    background-color:#3498db;
+}
+#navbar ul{
+    list-style:none;
+}
+#navbar ul li a{
+    text-decoration:none;
+    float:left;
+    padding:20px 10px;
+    text-align:center;
+    color:#ecf0f1;
+    margin-right:100px;
+    margin-top:10px;
+    font-size:30px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#navbar ul li a:hover{
+    color:#ecf0f1;
+}
+#navbar ul li {
+    float:left;
+}
+
+#navbar ul {
+    float: right;
+}*/

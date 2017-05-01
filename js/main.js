@@ -9,7 +9,7 @@ let movieListManipulator = (function () {
         },
         deleteMovie: (key) => delete movies[key],
         toString: () => console.log(movies),
-        mapKeys: () => console.log(movies.keys()),
+        mapKeys: () => console.log(Object.keys(movies)),
         getMovies: () => movies // returns movies
     }
 })();
@@ -30,6 +30,7 @@ function listMovies() {
             let tdDeleteButton = document.createElement("td");
             let deleteButton = document.createElement("button");
             deleteButton.innerText = "Remove";
+            deleteButton.className = "btn btn-sm btn-danger";
 
             deleteButton.onclick = function () {
                 let id = this.parentNode.parentNode.id;
@@ -37,6 +38,8 @@ function listMovies() {
                 movieListManipulator.deleteMovie(id);
 
                 this.parentNode.parentNode.remove();
+
+                movieListManipulator.mapKeys();
             };
 
             tdDeleteButton.appendChild(deleteButton);
@@ -51,7 +54,8 @@ function listMovies() {
             tbody.appendChild(tr);
 
 
-            console.log(`${key} = ${movieObj[key].movieName}`)
+            console.log(`${key} = ${movieObj[key].movieName}`);
+            movieListManipulator.mapKeys();
         }
     }
 
