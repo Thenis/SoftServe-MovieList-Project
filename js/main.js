@@ -1,14 +1,14 @@
 let movieListManipulator = (function () {
-    let movies = new Map();
+    let movies = {};
     let id = 0;
 
     return {
         addMovie: (item) => {
-            movies.set(id, item);
+            movies[id] = item;
             id++;
         },
-        deleteMovie: (key) => movies.delete(key),
-        toString: () => console.log(movies.values()),
+        deleteMovie: (key) => delete movies[key],
+        toString: () => console.log(movies),
         mapKeys: () => console.log(movies.keys()),
         getMovies: () => movies // returns movies
     }
@@ -19,38 +19,41 @@ function listMovies() {
 
     tbody.innerHTML = ""; // clear table child elements
 
+    let movieObj = movieListManipulator.getMovies();
 
-    movieListManipulator.getMovies().forEach(function (value, key) {
-        let tr = document.createElement("tr");
-        let tdMovie = document.createElement("td");
-        let tdRating = document.createElement("td");
-        let tdDeleteButton = document.createElement("td");
-        let deleteButton = document.createElement("button");
-        deleteButton.innerText = "Remove";
+    for(let key in movieObj){
+        if(movieObj.hasOwnProperty(key)){
 
-        deleteButton.onclick = function () {
-            let id = this.parentNode.parentNode.id;
+            let tr = document.createElement("tr");
+            let tdMovie = document.createElement("td");
+            let tdRating = document.createElement("td");
+            let tdDeleteButton = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.innerText = "Remove";
 
-            movieListManipulator.deleteMovie(Number(id));
+            deleteButton.onclick = function () {
+                let id = this.parentNode.parentNode.id;
 
-            this.parentNode.parentNode.remove();
-        };
+                movieListManipulator.deleteMovie(id);
 
-        tdDeleteButton.appendChild(deleteButton);
+                this.parentNode.parentNode.remove();
+            };
 
-        tdMovie.innerText = value.movieName;
-        tdRating.innerText = value.rating;
-        tr.id = key;
+            tdDeleteButton.appendChild(deleteButton);
 
-        tr.appendChild(tdMovie);
-        tr.appendChild(tdRating);
-        tr.appendChild(tdDeleteButton);
-        tbody.appendChild(tr);
+            tdMovie.innerText = movieObj[key].movieName;
+            tdRating.innerText = movieObj[key].rating;
+            tr.id = key;
+
+            tr.appendChild(tdMovie);
+            tr.appendChild(tdRating);
+            tr.appendChild(tdDeleteButton);
+            tbody.appendChild(tr);
 
 
-        console.log(`${key} = ${value.movieName}`)
-
-    });
+            console.log(`${key} = ${movieObj[key].movieName}`)
+        }
+    }
 
 
 }
