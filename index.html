@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Movie List</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
-<body onload="listMovies()">
+<body>
 
 <nav class="my-navbar navbar navbar-default">
     <div class="container-fluid">
@@ -26,21 +26,21 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="nav-links collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav row vdivide">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a id="list" href="#">Link</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
-<form onsubmit="event.preventDefault(); addMovie();">
+<form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
     <label for="movie-input">Movie name</label>
-    <input id="movie-input" type="text"/>
-    <input type="submit" value="Add Movie"/>
+    <input required  id="movie-input" type="text"/>
+    <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
 </form>
-<div class="container">
-<table class="table table-striped">
+
+<table id="table" class="table table-striped">
     <thead>
     <tr>
         <th>Movie</th>
@@ -52,7 +52,21 @@
     <tbody id="movie-list">
     </tbody>
 </table>
+<div>
+<div id="mycarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="img/dark-grey-tint.png" alt="" class="img-responsive">
+            <div class="carousel-caption">
+                <p>Organize your favourite movies</p>
+                <a href="#" class="btn btn-lg btn-primary">Start now</a>
+            </div>
+        </div>
+    </div>
 </div>
 
+<footer class="footer">&copy; Denis Stoilov 2017
+</footer>
+</div>
 </body>
 </html>

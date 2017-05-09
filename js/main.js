@@ -1,3 +1,8 @@
+window.onload = function () {
+    document.getElementById("table").style.display = "none";
+    document.getElementById("movie-form").style.display = "none";
+};
+
 let movieListManipulator = (function () {
     let movies = {};
     let id = 0;
