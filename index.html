@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav row vdivide">
                 <li><a id="home" href="#">Home</a></li>
                 <li><a id="add-movie" href="#">Add a movie</a></li>
-                <li><a id="list" href="#">My List</a></li>
+                <li><a id="lists" href="#">Lists</a></li>
                 <li><a id="archive" href="#">Archive</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -57,12 +57,49 @@
 </section>
 
 <section id="form-page">
-<form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
-    <label for="movie-input">Movie name</label>
-    <input required id="movie-input" type="text"/>
-    <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
-</form>
+    <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
+        <label for="movie-input">Movie name</label>
+        <input required id="movie-input" type="text"/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
+    </form>
 </section>
+
+<section id="lists-page">
+    <div id="list-container" class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card ">
+                    <div class="card-block center-block" style="display: flex;">
+                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card ">
+                    <div class="card-block center-block">
+                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card ">
+                    <div class="card-block center-block" style="display: flex;">
+                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card ">
+                    <div class="card-block center-block" style="display: flex;">
+                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <table id="table" class="table table-striped">
     <thead>
     <tr>
@@ -77,8 +114,8 @@
 </table>
 
 
-    <footer class="footer">&copy; MovieList 2017
-    </footer>
+<footer class="footer">&copy; MovieList 2017
+</footer>
 
 </body>
 </html>

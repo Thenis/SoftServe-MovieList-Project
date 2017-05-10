@@ -2,17 +2,30 @@ window.onload = function () {
     document.getElementById("table").style.display = "none";
     document.getElementById("movie-form").style.display = "none";
 
+    showView("lists-page");
+
     document.getElementById("home").addEventListener("click", function () {
         showHomeView();
     });
 
+    document.getElementById("lists").addEventListener("click", function () {
+        showListsView();
+    });
+
+
+    movieListManipulator.addList({name: "Favourites", movies:{}});
+    movieListManipulator.addList({name: "Must watch", movies: {}});
+    movieListManipulator.addMovieToList(0, {name: "Batman"});
+    movieListManipulator.addMovieToList(0, {name: "Iron Man"});
+    movieListManipulator.addMovieToList(1, {name: "Superman"});
+    console.log(movieListManipulator.getLists());
 
 };
 
 function showView(view) {
     let sections = document.getElementsByTagName("section");
 
-    for(let section of sections){
+    for (let section of sections) {
         section.style.display = "none";
     }
 
@@ -24,22 +37,47 @@ function showHomeView() {
     showView("home-page");
 }
 
+function showListsView() {
+    showView("lists-page");
+}
 
 let movieListManipulator = (function () {
-    let movies = {};
+    let lists = {};
     let id = 0;
 
     return {
-        addMovie: (item) => {
-            movies[id] = item;
+        addList: (list) => {
+            lists[id] = list;
             id++;
         },
-        deleteMovie: (key) => delete movies[key],
-        toString: () => console.log(movies),
-        mapKeys: () => console.log(Object.keys(movies)),
-        getMovies: () => movies // returns movies
+        getLists: () => lists,
+        addMovieToList: (listId, movie) => {
+            lists[listId]["movies"][id] = movie;
+            id++;
+        },
+        deleteMovie: (listId, movieId) => delete lists[listId]["movies"][movieId],
+
     }
+
+
 })();
+
+
+/*let movieListManipulator = (function () {
+ let movies = {};
+ let id = 0;
+
+ return {
+ addMovie: (item) => {
+ movies[id] = item;
+ id++;
+ },
+ deleteMovie: (key) => delete movies[key],
+ toString: () => console.log(movies),
+ mapKeys: () => console.log(Object.keys(movies)),
+ getMovies: () => movies // returns movies
+ }
+ })();*/
 
 function listMovies() {
     let tbody = document.getElementById("movie-list");
@@ -48,8 +86,8 @@ function listMovies() {
 
     let movieObj = movieListManipulator.getMovies();
 
-    for(let key in movieObj){
-        if(movieObj.hasOwnProperty(key)){
+    for (let key in movieObj) {
+        if (movieObj.hasOwnProperty(key)) {
 
             let tr = document.createElement("tr");
             let tdMovie = document.createElement("td");
