@@ -70,28 +70,24 @@ body {
 }
 
 /* CAROUSEL */
-.carousel .item img {
-    min-width: 100%;
+.carousel-caption {
+    font-family: 'Montserrat', sans-serif;
+    top: 30%;
+    bottom: auto;
 }
 
-.img-responsive {
-    width:100%;
-}
-.carousel-caption {
-    margin-bottom: 600px;
-    font-family: 'Montserrat', sans-serif;
+.carousel-caption > h1{
     font-size: 50px;
     color: #FFEB3B;
     text-transform: uppercase;
 }
 
-#caption-button{
-    background-color: #FFEB3B;
-    color: #222222;
+.carousel-caption > a {
+    margin-top: 3%;
     font-size: 20px;
-    padding: 10px;
-    border: #222222 solid 1px;
 }
+
+
 
 
 /*  BUTTON STYLING */
@@ -108,6 +104,18 @@ body {
     color: #FFEB3B;
     border-color: #FFEB3B;
 }
+.btn-primary:focus{
+    background-color: #222222;
+    color: #FFEB3B;
+    border-color: #FFEB3B;
+}
+
+.btn-primary:active{
+    background-color: #222222;
+    color: #FFEB3B;
+    border-color: #FFEB3B;
+}
+
 
 /* FOOTER */
 .footer {

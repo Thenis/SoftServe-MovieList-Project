@@ -1,6 +1,10 @@
 window.onload = function () {
     document.getElementById("table").style.display = "none";
     document.getElementById("movie-form").style.display = "none";
+
+    document.getElementById("list").addEventListener("click", function () {
+        document.getElementById("home-page").style.display = "none";
+    });
 };
 
 let movieListManipulator = (function () {

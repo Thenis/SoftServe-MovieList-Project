@@ -15,7 +15,8 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -34,9 +35,29 @@
     </div><!-- /.container-fluid -->
 </nav>
 
+<section id="home-page">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="row">
+
+                    <img src="img/bg-image.png" alt="" class="img-responsive">
+
+                    <div class="carousel-caption">
+                        <h1>Organize your favourite movies</h1>
+                        <a href="#" class="btn btn-lg btn-primary">Start now</a>
+                    </div>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
     <label for="movie-input">Movie name</label>
-    <input required  id="movie-input" type="text"/>
+    <input required id="movie-input" type="text"/>
     <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
 </form>
 
@@ -52,21 +73,10 @@
     <tbody id="movie-list">
     </tbody>
 </table>
-<div>
-<div id="mycarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="item active">
-            <img src="img/dark-grey-tint.png" alt="" class="img-responsive">
-            <div class="carousel-caption">
-                <p>Organize your favourite movies</p>
-                <a href="#" class="btn btn-lg btn-primary">Start now</a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<footer class="footer">&copy; Denis Stoilov 2017
-</footer>
-</div>
+
+    <footer class="footer">&copy; MovieList 2017
+    </footer>
+
 </body>
 </html>
