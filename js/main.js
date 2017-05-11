@@ -1,7 +1,9 @@
 window.onload = function () {
-    document.getElementById("movie-form").style.display = "none";
-
     showView("home-page");
+
+    document.getElementById("start-now-btn").addEventListener("click", function () {
+        showView("lists-page");
+    });
 
     document.getElementById("home").addEventListener("click", function () {
         showView("home-page");
@@ -16,11 +18,17 @@ window.onload = function () {
         showView("add-list-form");
     });
 
+    document.getElementById("add-movie").addEventListener("click", function () {
+        showView("add-movie-form");
+        loadListNamesInSelect();
+    });
+
     movieListManipulator.addList({name: "Favourites", movies:{}});
     movieListManipulator.addList({name: "Must watch", movies: {}});
     movieListManipulator.addMovieToList(0, {name: "Batman"});
     movieListManipulator.addMovieToList(0, {name: "Iron Man"});
     movieListManipulator.addMovieToList(1, {name: "Superman"});
+
 
 };
 
@@ -44,8 +52,11 @@ let movieListManipulator = (function () {
             lists[id] = list;
             id++;
         },
+
         getLists: () => lists,
+
         getListNameById: (id) => lists[id].name,
+
         addMovieToList: (listId, movie) => {
             lists[listId]["movies"][id] = movie;
             id++;
@@ -91,7 +102,6 @@ function listAllLists() {
 
             linkElement.addEventListener("click", function () {
                listMovies(listKey, listObj[listKey].movies);
-               console.log(listObj[listKey].movies)
             });
 
             cardTitle.appendChild(linkElement);
@@ -108,14 +118,13 @@ function listAllLists() {
     }
 }
 
-function listMovies(listId, movies) {
+function listMovies(listId, movieObj) {
     showView("movie-page");
 
     let tbody = document.getElementById("movie-list");
 
     tbody.innerHTML = ""; // clear table child elements
-    document.getElementById("movie-header").innerText = "Movies in list:  " + movieListManipulator.getListNameById(listId);
-    let movieObj = movies;
+    document.getElementById("movie-header").innerText = "Movies in list - " + movieListManipulator.getListNameById(listId);
 
     for (let key in movieObj) {
         if (movieObj.hasOwnProperty(key)) {
@@ -150,13 +159,36 @@ function listMovies(listId, movies) {
     }
 }
 
+function loadListNamesInSelect() {
+
+    let select = document.getElementById("list-select");
+    select.innerHTML = ""; // clear options
+
+    let listNames = movieListManipulator.getLists();
+
+    for (let key in listNames){
+        if(listNames.hasOwnProperty(key)){
+            let option = document.createElement("option");
+            option.value = key;
+            option.innerText = listNames[key].name;
+            select.appendChild(option);
+        }
+
+    }
+}
+
 function addMovie() {
     let movieName = document.getElementById("movie-input").value;
+    let select = document.getElementById("list-select");
+    let listId = select.options[select.selectedIndex].value;
 
-    movieListManipulator.addMovie({movieName: movieName, date: Date.now(), watched: false, rating: "-"});
+    movieListManipulator.addMovieToList(listId, {name: movieName})
+
+
+    // movieListManipulator.addMovie({movieName: movieName, date: Date.now(), watched: false, rating: "-"});
     //console.log(getDate);
     //console.log(movieName);
-    movieListManipulator.toString();
+    //movieListManipulator.toString();
     /*movieListManipulator.mapKeys();*/
-    listMovies();
+    //listMovies();
 }

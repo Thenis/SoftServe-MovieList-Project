@@ -29,9 +29,10 @@
         <div class="nav-links collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav row vdivide">
                 <li><a id="home" href="#">Home</a></li>
+                <li><a id="lists" href="#">Lists</a></li>
                 <li><a id="add-list" href="#">Add list</a></li>
                 <li><a id="add-movie" href="#">Add a movie</a></li>
-                <li><a id="lists" href="#">Lists</a></li>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -47,7 +48,7 @@
 
                     <div class="carousel-caption">
                         <h1>Organize your favourite movies</h1>
-                        <a href="#" class="btn btn-lg btn-primary">Start now</a>
+                        <a id="start-now-btn" href="#" class="btn btn-lg btn-primary">Start now</a>
                     </div>
                     <div class="row"></div>
                 </div>
@@ -60,12 +61,16 @@
     <form id="list-form" onsubmit="event.preventDefault(); addList();">
         <label for="movie-input">Movie name</label>
         <input required id="list-input" type="text"/>
-        <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Add List"/>
     </form>
 </section>
 
-<section id="form-page">
+<section id="add-movie-form">
     <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
+        <label for="list-select">Select a list:</label>
+        <select id="list-select">
+
+        </select>
         <label for="movie-input">Movie name</label>
         <input required id="movie-input" type="text"/>
         <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>

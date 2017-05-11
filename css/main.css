@@ -39,7 +39,6 @@ body {
     color: #222222;
     font-size: 20px;
     margin-left: 15px;
-    letter-spacing: -1px;
     text-transform: uppercase;
 }
 
@@ -77,7 +76,6 @@ body {
 
 /* CAROUSEL */
 .carousel-caption {
-    font-family: 'Montserrat', sans-serif;
     top: 30%;
     bottom: auto;
 }
@@ -132,7 +130,6 @@ body {
 
 /* FOOTER */
 .footer {
-    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
@@ -181,4 +178,8 @@ table {
 
 .table>thead>tr>th{
     border-bottom: 2px solid #222222;
+}
+
+.table-responsive{
+    border: none;
 }
