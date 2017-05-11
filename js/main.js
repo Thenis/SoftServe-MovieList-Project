@@ -2,23 +2,27 @@ window.onload = function () {
     document.getElementById("table").style.display = "none";
     document.getElementById("movie-form").style.display = "none";
 
-    showView("lists-page");
+    showView("home-page");
 
     document.getElementById("home").addEventListener("click", function () {
-        showHomeView();
+        showView("home-page");
     });
 
     document.getElementById("lists").addEventListener("click", function () {
-        showListsView();
+        showView("lists-page");
+        listAllLists();
     });
 
+    document.getElementById("add-list").addEventListener("click", function () {
+        showView("add-list-form");
+    });
 
     movieListManipulator.addList({name: "Favourites", movies:{}});
     movieListManipulator.addList({name: "Must watch", movies: {}});
     movieListManipulator.addMovieToList(0, {name: "Batman"});
     movieListManipulator.addMovieToList(0, {name: "Iron Man"});
     movieListManipulator.addMovieToList(1, {name: "Superman"});
-    console.log(movieListManipulator.getLists());
+
 
 };
 
@@ -31,14 +35,6 @@ function showView(view) {
 
     document.getElementById(view).style.display = "";
 
-}
-
-function showHomeView() {
-    showView("home-page");
-}
-
-function showListsView() {
-    showView("lists-page");
 }
 
 let movieListManipulator = (function () {
@@ -61,6 +57,53 @@ let movieListManipulator = (function () {
 
 
 })();
+
+function addList() {
+    let listInput = document.getElementById("list-input").value;
+
+    movieListManipulator.addList({name: listInput , movies:{}});
+
+    console.log(movieListManipulator.getLists());
+}
+
+function listAllLists() {
+    let target = document.getElementById("target-location"); // location of where the lists will be appended
+
+    target.innerHTML = ""; // clear the target of children elements
+
+    let listObj = movieListManipulator.getLists();
+
+    for (let listKey in listObj){
+        if(listObj.hasOwnProperty(listKey)){
+            let gridDiv = document.createElement("div");
+            gridDiv.className = "col-sm-6";
+
+            let cardDiv = document.createElement("div");
+            cardDiv.className = "card";
+
+            let cardBlockDiv = document.createElement("div");
+            cardBlockDiv.className = "card-block center-block";
+
+            let cardTitle = document.createElement("h3");
+            cardTitle.className = "card-title text-center";
+
+            let linkElement = document.createElement("a");
+            linkElement.setAttribute("href", "#");
+            linkElement.innerText = listObj[listKey].name;
+
+            cardTitle.appendChild(linkElement);
+
+            cardBlockDiv.appendChild(cardTitle);
+
+            cardDiv.appendChild(cardBlockDiv);
+
+            gridDiv.appendChild(cardDiv);
+
+            target.appendChild(gridDiv);
+
+        }
+    }
+}
 
 
 /*let movieListManipulator = (function () {
@@ -137,7 +180,3 @@ function addMovie() {
     /*movieListManipulator.mapKeys();*/
     listMovies();
 }
-
-/*movieListManipulator.addMovie({name: "GOT"});
- movieListManipulator.addMovie({name: "Batman"});
- movieListManipulator.addMovie({name: "Star wars"});*/

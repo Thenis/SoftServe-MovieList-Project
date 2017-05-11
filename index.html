@@ -29,9 +29,9 @@
         <div class="nav-links collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav row vdivide">
                 <li><a id="home" href="#">Home</a></li>
+                <li><a id="add-list" href="#">Add list</a></li>
                 <li><a id="add-movie" href="#">Add a movie</a></li>
                 <li><a id="lists" href="#">Lists</a></li>
-                <li><a id="archive" href="#">Archive</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -56,6 +56,14 @@
     </div>
 </section>
 
+<section id="add-list-form">
+    <form id="list-form" onsubmit="event.preventDefault(); addList();">
+        <label for="movie-input">Movie name</label>
+        <input required id="list-input" type="text"/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
+    </form>
+</section>
+
 <section id="form-page">
     <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
         <label for="movie-input">Movie name</label>
@@ -66,35 +74,8 @@
 
 <section id="lists-page">
     <div id="list-container" class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card ">
-                    <div class="card-block center-block" style="display: flex;">
-                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card ">
-                    <div class="card-block center-block">
-                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card ">
-                    <div class="card-block center-block" style="display: flex;">
-                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card ">
-                    <div class="card-block center-block" style="display: flex;">
-                        <h3 class="card-title text-center"><a href="#">List name</a></h3>
-                    </div>
-                </div>
-            </div>
+        <div id="target-location" class="row">
+                <!-- Lists get appended here -->
         </div>
     </div>
 </section>
