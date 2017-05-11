@@ -1,5 +1,4 @@
 window.onload = function () {
-    document.getElementById("table").style.display = "none";
     document.getElementById("movie-form").style.display = "none";
 
     showView("home-page");
@@ -22,7 +21,6 @@ window.onload = function () {
     movieListManipulator.addMovieToList(0, {name: "Batman"});
     movieListManipulator.addMovieToList(0, {name: "Iron Man"});
     movieListManipulator.addMovieToList(1, {name: "Superman"});
-
 
 };
 
@@ -47,6 +45,7 @@ let movieListManipulator = (function () {
             id++;
         },
         getLists: () => lists,
+        getListNameById: (id) => lists[id].name,
         addMovieToList: (listId, movie) => {
             lists[listId]["movies"][id] = movie;
             id++;
@@ -63,7 +62,6 @@ function addList() {
 
     movieListManipulator.addList({name: listInput , movies:{}});
 
-    console.log(movieListManipulator.getLists());
 }
 
 function listAllLists() {
@@ -91,6 +89,11 @@ function listAllLists() {
             linkElement.setAttribute("href", "#");
             linkElement.innerText = listObj[listKey].name;
 
+            linkElement.addEventListener("click", function () {
+               listMovies(listKey, listObj[listKey].movies);
+               console.log(listObj[listKey].movies)
+            });
+
             cardTitle.appendChild(linkElement);
 
             cardBlockDiv.appendChild(cardTitle);
@@ -105,29 +108,14 @@ function listAllLists() {
     }
 }
 
+function listMovies(listId, movies) {
+    showView("movie-page");
 
-/*let movieListManipulator = (function () {
- let movies = {};
- let id = 0;
-
- return {
- addMovie: (item) => {
- movies[id] = item;
- id++;
- },
- deleteMovie: (key) => delete movies[key],
- toString: () => console.log(movies),
- mapKeys: () => console.log(Object.keys(movies)),
- getMovies: () => movies // returns movies
- }
- })();*/
-
-function listMovies() {
     let tbody = document.getElementById("movie-list");
 
     tbody.innerHTML = ""; // clear table child elements
-
-    let movieObj = movieListManipulator.getMovies();
+    document.getElementById("movie-header").innerText = "Movies in list:  " + movieListManipulator.getListNameById(listId);
+    let movieObj = movies;
 
     for (let key in movieObj) {
         if (movieObj.hasOwnProperty(key)) {
@@ -141,19 +129,15 @@ function listMovies() {
             deleteButton.className = "btn btn-sm btn-danger";
 
             deleteButton.onclick = function () {
-                let id = this.parentNode.parentNode.id;
-
-                movieListManipulator.deleteMovie(id);
+                movieListManipulator.deleteMovie(listId, key);
 
                 this.parentNode.parentNode.remove();
-
-                movieListManipulator.mapKeys();
             };
 
             tdDeleteButton.appendChild(deleteButton);
 
-            tdMovie.innerText = movieObj[key].movieName;
-            tdRating.innerText = movieObj[key].rating;
+            tdMovie.innerText = movieObj[key].name;
+            //tdRating.innerText = movieObj[key].rating;
             tr.id = key;
 
             tr.appendChild(tdMovie);
@@ -162,12 +146,8 @@ function listMovies() {
             tbody.appendChild(tr);
 
 
-            console.log(`${key} = ${movieObj[key].movieName}`);
-            movieListManipulator.mapKeys();
         }
     }
-
-
 }
 
 function addMovie() {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:600,700,900');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600');
 html {
     position: relative;
     min-height: 100%;
@@ -8,6 +8,11 @@ body {
     margin-bottom: 80px;
     background-color: #222222;
     font-family: 'Montserrat', sans-serif;
+}
+
+.page-header {
+    color: #FFEB3B;
+    border-bottom: 1px solid #FFEB3B;
 }
 
 /* NAVIGATION */
@@ -117,6 +122,13 @@ body {
     border-color: #FFEB3B;
 }
 
+.btn-danger {
+    background-color: #e74c3c;
+    border-radius: 0;
+    border: none;
+    font-weight: 100;
+}
+
 
 /* FOOTER */
 .footer {
@@ -141,7 +153,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20%;
+    margin-top: 5%;
     padding: 50px;
 }
 
@@ -156,4 +168,17 @@ body {
 
 #list-container .card:hover h3 a{
     color: #FFEB3B;
+}
+
+table {
+    background-color: #FFEB3B;
+    border: 1px solid #222222;
+}
+
+.table>tbody>tr>td{
+    border-color: #222222;
+}
+
+.table>thead>tr>th{
+    border-bottom: 2px solid #222222;
 }
