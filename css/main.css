@@ -143,6 +143,7 @@ body {
 
 }
 
+/* Card styling(list containers) */
 #list-container .card {
     background-color: #FFEB3B;
     border: 2px solid #FFEB3B;
@@ -167,6 +168,7 @@ body {
     color: #FFEB3B;
 }
 
+/* Table styling */
 table {
     background-color: #FFEB3B;
     border: 1px solid #222222;
@@ -184,6 +186,7 @@ table {
     border: none;
 }
 
+/* Label styling */
 .list-movie-label {
     color: #FFEB3B;
 }

@@ -22,14 +22,6 @@ window.onload = function () {
         showView("add-movie-form");
         loadListNamesInSelect();
     });
-
-    movieListManipulator.addList({name: "Favourites", movies:{}});
-    movieListManipulator.addList({name: "Must watch", movies: {}});
-    movieListManipulator.addMovieToList(0, {name: "Batman"});
-    movieListManipulator.addMovieToList(0, {name: "Iron Man"});
-    movieListManipulator.addMovieToList(1, {name: "Superman"});
-
-
 };
 
 function showView(view) {
@@ -61,18 +53,17 @@ let movieListManipulator = (function () {
             lists[listId]["movies"][id] = movie;
             id++;
         },
-        deleteMovie: (listId, movieId) => delete lists[listId]["movies"][movieId],
-
-    }
-
-
+        deleteMovie: (listId, movieId) => delete lists[listId]["movies"][movieId]
+    };
 })();
 
 function addList() {
-    let listInput = document.getElementById("list-input").value;
+    let listNameInput = document.getElementById("list-input").value;
+    let listDescrInput = document.getElementById("list-descr").value;
 
-    movieListManipulator.addList({name: listInput , movies:{}});
+    console.log(listDescrInput);
 
+    movieListManipulator.addList({name: listNameInput, description: listDescrInput, movies:{}});
 }
 
 function listAllLists() {
@@ -100,6 +91,9 @@ function listAllLists() {
             linkElement.setAttribute("href", "#");
             linkElement.innerText = listObj[listKey].name;
 
+            let cardListDescription = document.createElement("i");
+            cardListDescription.innerText = (listObj[listKey].description === "") ? "No Description" : listObj[listKey].description;
+
             linkElement.addEventListener("click", function () {
                listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
             });
@@ -107,6 +101,7 @@ function listAllLists() {
             cardTitle.appendChild(linkElement);
 
             cardBlockDiv.appendChild(cardTitle);
+            cardBlockDiv.appendChild(cardListDescription);
 
             cardDiv.appendChild(cardBlockDiv);
 
@@ -118,8 +113,33 @@ function listAllLists() {
     }
 }
 
-function listMovies(listId, movieObj) {
+function loadListNamesInSelect() {
+    let select = document.getElementById("list-select");
+    select.innerHTML = ""; // clear options
 
+    let listNames = movieListManipulator.getLists();
+
+    for (let key in listNames){
+        if(listNames.hasOwnProperty(key)){
+            let option = document.createElement("option");
+            option.value = key;
+            option.innerText = listNames[key].name;
+            select.appendChild(option);
+        }
+
+    }
+}
+
+function addMovie() {
+    let movieName = document.getElementById("movie-input").value;
+
+    let select = document.getElementById("list-select");
+    let listId = select.options[select.selectedIndex].value;
+
+    movieListManipulator.addMovieToList(listId, {name: movieName})
+}
+
+function listMovies(listId, movieObj) {
     let tbody = document.getElementById("movie-list");
 
     tbody.innerHTML = ""; // clear table child elements
@@ -154,7 +174,6 @@ function listMovies(listId, movieObj) {
             tdDeleteButton.appendChild(deleteButton);
 
             tdMovie.innerText = movieObj[key].name;
-            //tdRating.innerText = movieObj[key].rating;
             tr.id = key;
             tdUpDown.appendChild(upSpan);
             tdUpDown.appendChild(downSpan);
@@ -167,39 +186,4 @@ function listMovies(listId, movieObj) {
             showView("movie-page");
         }
     }
-}
-
-function loadListNamesInSelect() {
-
-    let select = document.getElementById("list-select");
-    select.innerHTML = ""; // clear options
-
-    let listNames = movieListManipulator.getLists();
-
-    for (let key in listNames){
-        if(listNames.hasOwnProperty(key)){
-            let option = document.createElement("option");
-            option.value = key;
-            option.innerText = listNames[key].name;
-            select.appendChild(option);
-        }
-
-    }
-}
-
-function addMovie() {
-    let movieName = document.getElementById("movie-input").value;
-
-    let select = document.getElementById("list-select");
-    let listId = select.options[select.selectedIndex].value;
-
-    movieListManipulator.addMovieToList(listId, {name: movieName})
-
-
-    // movieListManipulator.addMovie({movieName: movieName, date: Date.now(), watched: false, rating: "-"});
-    //console.log(getDate);
-    //console.log(movieName);
-    //movieListManipulator.toString();
-    /*movieListManipulator.mapKeys();*/
-    //listMovies();
 }

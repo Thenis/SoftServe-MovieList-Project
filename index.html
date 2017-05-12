@@ -57,41 +57,48 @@
     </div>
 </section>
 
-<section id="add-list-form">
-    <div class="container">
-        <h3 class="page-header">Add a new list</h3>
-    <form id="list-form" onsubmit="event.preventDefault(); addList();">
-        <div class="form-group">
-            <label class="list-movie-label" for="list-input">List name</label>
-            <input type="text" class="form-control" id="list-input" required>
-        </div>
-        <div class="form-group">
-            <label class="list-movie-label" for="descr-box">Description</label>
-            <textarea class="form-control" id="descr-box" placeholder="Optional"></textarea>
-        </div>
-        <input type="submit" class="btn btn-sm btn-primary" value="Add List"/>
-    </form>
-    </div>
-</section>
-
-<section id="add-movie-form">
-    <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
-        <label for="list-select">Select a list:</label>
-        <select id="list-select">
-            <!-- options get appended here -->
-        </select>
-        <label for="movie-input">Movie name</label>
-        <input required id="movie-input" type="text"/>
-        <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
-    </form>
-</section>
-
 <section id="lists-page">
     <div id="list-container" class="container">
         <h2 class="page-header">Lists</h2>
         <div id="target-location" class="row">
-                <!-- Lists get appended here -->
+            <!-- Lists get appended here -->
         </div>
+    </div>
+</section>
+
+<section id="add-list-form">
+    <div class="container">
+        <h3 class="page-header">Add a new list</h3>
+        <form id="list-form" onsubmit="event.preventDefault(); addList();">
+            <div class="form-group">
+                <label class="list-movie-label" for="list-input">List name</label>
+                <input type="text" class="form-control" id="list-input" required>
+            </div>
+            <div class="form-group">
+                <label class="list-movie-label" for="list-descr">Description</label>
+                <textarea class="form-control" id="list-descr" placeholder="Optional"></textarea>
+            </div>
+            <input type="submit" class="btn btn-sm btn-primary" value="Add List"/>
+        </form>
+    </div>
+</section>
+
+<section id="add-movie-form">
+    <div class="container">
+        <h3 class="page-header">Add a movie to a list</h3>
+        <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
+            <div class="form-group">
+                <label class="list-movie-label" for="list-select">Select a list:</label>
+                <select id="list-select" class="form-control">
+                    <!-- options get appended here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="list-movie-label" for="movie-input">Movie name</label>
+                <input class="form-control" type="text" id="movie-input" required/>
+            </div>
+            <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
+        </form>
     </div>
 </section>
 
@@ -99,22 +106,21 @@
     <div class="container">
         <h2 id="movie-header" class="page-header"></h2>
         <div class="table-responsive">
-    <table id="table" class="table">
-        <thead>
-        <tr>
-            <th>Movie</th>
-            <th>Up/Down</th>
-            <th>Options</th>
-        </tr>
-        </thead>
+            <table id="table" class="table">
+                <thead>
+                <tr>
+                    <th>Movie</th>
+                    <th>Up/Down</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
 
-        <tbody id="movie-list">
-        </tbody>
-    </table>
-    </div>
+                <tbody id="movie-list">
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
-
 
 <footer class="footer">&copy; MovieList 2017
 </footer>
