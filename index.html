@@ -58,18 +58,27 @@
 </section>
 
 <section id="add-list-form">
+    <div class="container">
+        <h3 class="page-header">Add a new list</h3>
     <form id="list-form" onsubmit="event.preventDefault(); addList();">
-        <label for="movie-input">Movie name</label>
-        <input required id="list-input" type="text"/>
+        <div class="form-group">
+            <label class="list-movie-label" for="movie-input">List name</label>
+            <input type="text" class="form-control" id="movie-input">
+        </div>
+        <div class="form-group">
+            <label class="list-movie-label" for="descr-box">Description</label>
+            <textarea class="form-control" id="descr-box" placeholder="Optional"></textarea>
+        </div>
         <input type="submit" class="btn btn-sm btn-primary" value="Add List"/>
     </form>
+    </div>
 </section>
 
 <section id="add-movie-form">
     <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
         <label for="list-select">Select a list:</label>
         <select id="list-select">
-
+            <!-- options get appended here -->
         </select>
         <label for="movie-input">Movie name</label>
         <input required id="movie-input" type="text"/>
@@ -94,8 +103,8 @@
         <thead>
         <tr>
             <th>Movie</th>
-            <th>Rating</th>
-            <th>Watched</th>
+            <th>Up/Down</th>
+            <th>Options</th>
         </tr>
         </thead>
 

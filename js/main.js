@@ -101,7 +101,7 @@ function listAllLists() {
             linkElement.innerText = listObj[listKey].name;
 
             linkElement.addEventListener("click", function () {
-               listMovies(listKey, listObj[listKey].movies);
+               listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
             });
 
             cardTitle.appendChild(linkElement);
@@ -119,23 +119,31 @@ function listAllLists() {
 }
 
 function listMovies(listId, movieObj) {
-    showView("movie-page");
 
     let tbody = document.getElementById("movie-list");
 
     tbody.innerHTML = ""; // clear table child elements
-    document.getElementById("movie-header").innerText = "Movies in list - " + movieListManipulator.getListNameById(listId);
+    document.getElementById("movie-header").innerText = `Movies in list - ${movieListManipulator.getListNameById(listId)}`;
 
     for (let key in movieObj) {
         if (movieObj.hasOwnProperty(key)) {
 
             let tr = document.createElement("tr");
+
             let tdMovie = document.createElement("td");
-            let tdRating = document.createElement("td");
+
+            let tdUpDown = document.createElement("td");
+
             let tdDeleteButton = document.createElement("td");
+
             let deleteButton = document.createElement("button");
             deleteButton.innerText = "Remove";
             deleteButton.className = "btn btn-sm btn-danger";
+
+            let upSpan = document.createElement("span");
+            let downSpan = document.createElement("span");
+            upSpan.className = "glyphicon glyphicon-arrow-up";
+            downSpan.className = "glyphicon glyphicon-arrow-down";
 
             deleteButton.onclick = function () {
                 movieListManipulator.deleteMovie(listId, key);
@@ -148,13 +156,15 @@ function listMovies(listId, movieObj) {
             tdMovie.innerText = movieObj[key].name;
             //tdRating.innerText = movieObj[key].rating;
             tr.id = key;
+            tdUpDown.appendChild(upSpan);
+            tdUpDown.appendChild(downSpan);
 
             tr.appendChild(tdMovie);
-            tr.appendChild(tdRating);
+            tr.appendChild(tdUpDown);
             tr.appendChild(tdDeleteButton);
             tbody.appendChild(tr);
 
-
+            showView("movie-page");
         }
     }
 }
@@ -179,6 +189,7 @@ function loadListNamesInSelect() {
 
 function addMovie() {
     let movieName = document.getElementById("movie-input").value;
+
     let select = document.getElementById("list-select");
     let listId = select.options[select.selectedIndex].value;
 

@@ -183,3 +183,7 @@ table {
 .table-responsive{
     border: none;
 }
+
+.list-movie-label {
+    color: #FFEB3B;
+}
