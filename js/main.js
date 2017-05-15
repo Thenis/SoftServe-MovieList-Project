@@ -2,7 +2,7 @@ window.onload = function() {
     showView("home-page");
 
     document.getElementById("start-now-btn").addEventListener("click", function() {
-        showView("lists-page");
+        showView("add-list-form");
     });
     document.getElementById("home").addEventListener("click", function() {
         showView("home-page");
@@ -214,9 +214,21 @@ function listMovies(listId, movieObj) {
             deleteButton.className = "btn btn-sm btn-danger";
 
             let upSpan = document.createElement("span");
-            let downSpan = document.createElement("span");
             upSpan.className = "glyphicon glyphicon-arrow-up";
+            upSpan.onclick = function() {
+                let tr = this.parentNode.parentNode;
+                let previousSibling = tr.previousSibling;
+                tbody.insertBefore(tr, previousSibling);
+            }
+
+
+            let downSpan = document.createElement("span");
             downSpan.className = "glyphicon glyphicon-arrow-down";
+            downSpan.onclick = function() {
+                let tr = this.parentNode.parentNode;
+                let nextSibling = tr.nextSibling;
+                tbody.insertBefore(nextSibling, tr);
+            };
 
             deleteButton.onclick = function() {
                 movieListManipulator.deleteMovie(listId, key);
