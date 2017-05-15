@@ -1,24 +1,23 @@
-window.onload = function () {
+window.onload = function() {
     showView("home-page");
 
-    document.getElementById("start-now-btn").addEventListener("click", function () {
+    document.getElementById("start-now-btn").addEventListener("click", function() {
         showView("lists-page");
     });
-
-    document.getElementById("home").addEventListener("click", function () {
+    document.getElementById("home").addEventListener("click", function() {
         showView("home-page");
     });
 
-    document.getElementById("lists").addEventListener("click", function () {
+    document.getElementById("lists").addEventListener("click", function() {
         showView("lists-page");
         listAllLists();
     });
 
-    document.getElementById("add-list").addEventListener("click", function () {
+    document.getElementById("add-list").addEventListener("click", function() {
         showView("add-list-form");
     });
 
-    document.getElementById("add-movie").addEventListener("click", function () {
+    document.getElementById("add-movie").addEventListener("click", function() {
         showView("add-movie-form");
         loadListNamesInSelect();
     });
@@ -35,7 +34,18 @@ function showView(view) {
 
 }
 
-let movieListManipulator = (function () {
+function showMsg(msg) {
+    let alert = document.getElementById("success-alert");
+    alert.style.display = "";
+
+    alert.innerText = msg;
+
+    setTimeout(() => {
+        alert.style.display = "none";
+    }, 2000);
+}
+
+let movieListManipulator = (function() {
     let lists = {};
     let id = 0;
 
@@ -63,18 +73,28 @@ function addList() {
 
     console.log(listDescrInput);
 
-    movieListManipulator.addList({name: listNameInput, description: listDescrInput, movies:{}});
+    movieListManipulator.addList({
+        name: listNameInput,
+        description: listDescrInput,
+        movies: {}
+    });
+
+    showMsg("List successfully added!");
 }
 
 function listAllLists() {
     let target = document.getElementById("target-location"); // location of where the lists will be appended
 
-    target.innerHTML = ""; // clear the target of children elements
-
     let listObj = movieListManipulator.getLists();
 
-    for (let listKey in listObj){
-        if(listObj.hasOwnProperty(listKey)){
+    if (Object.keys(listObj).length === 0) {
+        return;
+    }
+
+    target.innerHTML = ""; // clear the target of children elements
+
+    for (let listKey in listObj) {
+        if (listObj.hasOwnProperty(listKey)) {
             let gridDiv = document.createElement("div");
             gridDiv.className = "col-sm-6";
 
@@ -94,8 +114,8 @@ function listAllLists() {
             let cardListDescription = document.createElement("i");
             cardListDescription.innerText = (listObj[listKey].description === "") ? "No Description" : listObj[listKey].description;
 
-            linkElement.addEventListener("click", function () {
-               listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
+            linkElement.addEventListener("click", function() {
+                listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
             });
 
             cardTitle.appendChild(linkElement);
@@ -119,8 +139,8 @@ function loadListNamesInSelect() {
 
     let listNames = movieListManipulator.getLists();
 
-    for (let key in listNames){
-        if(listNames.hasOwnProperty(key)){
+    for (let key in listNames) {
+        if (listNames.hasOwnProperty(key)) {
             let option = document.createElement("option");
             option.value = key;
             option.innerText = listNames[key].name;
@@ -136,7 +156,11 @@ function addMovie() {
     let select = document.getElementById("list-select");
     let listId = select.options[select.selectedIndex].value;
 
-    movieListManipulator.addMovieToList(listId, {name: movieName})
+    movieListManipulator.addMovieToList(listId, {
+        name: movieName
+    })
+
+    showMsg("Movie successfully added!");
 }
 
 function listMovies(listId, movieObj) {
@@ -165,10 +189,12 @@ function listMovies(listId, movieObj) {
             upSpan.className = "glyphicon glyphicon-arrow-up";
             downSpan.className = "glyphicon glyphicon-arrow-down";
 
-            deleteButton.onclick = function () {
+            deleteButton.onclick = function() {
                 movieListManipulator.deleteMovie(listId, key);
 
                 this.parentNode.parentNode.remove();
+
+                showMsg("Movie successfully removed!");
             };
 
             tdDeleteButton.appendChild(deleteButton);
