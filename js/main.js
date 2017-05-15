@@ -34,8 +34,15 @@ function showView(view) {
 
 }
 
-function showMsg(msg) {
-    let alert = document.getElementById("success-alert");
+function showMsg(msg, type) {
+    let alert;
+
+    if (type === "success") {
+        alert = document.getElementById("success-alert");
+    } else {
+        alert = document.getElementById("error-alert");
+    }
+
     alert.style.display = "";
 
     alert.innerText = msg;
@@ -43,6 +50,14 @@ function showMsg(msg) {
     setTimeout(() => {
         alert.style.display = "none";
     }, 2000);
+}
+
+function checkObjIfEmpty(obj) {
+    if (Object.keys(obj).length === 0) {
+        return true;
+    }
+
+    return false;
 }
 
 let movieListManipulator = (function() {
@@ -79,7 +94,7 @@ function addList() {
         movies: {}
     });
 
-    showMsg("List successfully added!");
+    showMsg("List successfully added!", "success");
 }
 
 function listAllLists() {
@@ -87,7 +102,7 @@ function listAllLists() {
 
     let listObj = movieListManipulator.getLists();
 
-    if (Object.keys(listObj).length === 0) {
+    if (checkObjIfEmpty(listObj)) {
         return;
     }
 
@@ -115,7 +130,11 @@ function listAllLists() {
             cardListDescription.innerText = (listObj[listKey].description === "") ? "No Description" : listObj[listKey].description;
 
             linkElement.addEventListener("click", function() {
-                listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
+                if (checkObjIfEmpty(listObj[listKey].movies)) {
+                    showMsg("No movies available in selected list.");
+                } else {
+                    listMovies(listKey, listObj[listKey].movies); // lists the movies with listId and movies object
+                }
             });
 
             cardTitle.appendChild(linkElement);
@@ -135,9 +154,14 @@ function listAllLists() {
 
 function loadListNamesInSelect() {
     let select = document.getElementById("list-select");
-    select.innerHTML = ""; // clear options
 
     let listNames = movieListManipulator.getLists();
+
+    if (checkObjIfEmpty(listNames)) {
+        return;
+    }
+
+    select.innerHTML = ""; // clear options
 
     for (let key in listNames) {
         if (listNames.hasOwnProperty(key)) {
@@ -156,11 +180,16 @@ function addMovie() {
     let select = document.getElementById("list-select");
     let listId = select.options[select.selectedIndex].value;
 
+    if (listId === "no-lists") {
+        showMsg("No lists available.", "error");
+        return;
+    }
+
     movieListManipulator.addMovieToList(listId, {
         name: movieName
     })
 
-    showMsg("Movie successfully added!");
+    showMsg("Movie successfully added!", "success");
 }
 
 function listMovies(listId, movieObj) {
@@ -194,7 +223,7 @@ function listMovies(listId, movieObj) {
 
                 this.parentNode.parentNode.remove();
 
-                showMsg("Movie successfully removed!");
+                showMsg("Movie successfully removed!", "success");
             };
 
             tdDeleteButton.appendChild(deleteButton);
