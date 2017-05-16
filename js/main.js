@@ -86,8 +86,6 @@ function addList() {
     let listNameInput = document.getElementById("list-input").value;
     let listDescrInput = document.getElementById("list-descr").value;
 
-    console.log(listDescrInput);
-
     movieListManipulator.addList({
         name: listNameInput,
         description: listDescrInput,
