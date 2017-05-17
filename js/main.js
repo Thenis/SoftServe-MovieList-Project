@@ -23,8 +23,44 @@ $(function() {
         showView("add-movie-form");
         loadListNamesInSelect();
     });
+
+    $("#movie-input").on("input", function() {
+        let movieName = $(this).val();
+        ajaxGet(movieName);
+    })
 });
 
+function ajaxGet(queryString) {
+    const apiKey = "87cdafe12d9bdca68ba01c573e34376f";
+
+    let result = $.ajax({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${queryString}&page=1&include_adult=false`,
+
+        dataType: "JSON"
+    }).then(function(movies){
+        console.log(movies.results);
+        $("#movie-query-list").empty();
+
+        for(let movie of movies.results){
+            $("<li>")
+                .addClass("list-group-item list-group-item-action")
+                .append($("<a>")
+                    .attr("href", "#")
+                    .text(movie.original_title)
+                    .click(function () {
+                        addMovie($(this).text())
+                    })
+                    ).appendTo($("#movie-query-list"));
+        }
+        
+        
+    });
+
+    
+
+    
+}
 
 function showView(view) {
     let sections = $("section");
@@ -168,8 +204,7 @@ function loadListNamesInSelect() {
     }
 }
 
-function addMovie() {
-    let movieName = $("#movie-input").val();
+function addMovie(movieName) {
 
     let listId = $("#list-select :selected").val();
 
