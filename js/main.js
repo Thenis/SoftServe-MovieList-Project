@@ -1,8 +1,8 @@
-$(function(){
+$(function() {
 
     showView("home-page");
 
-    $("#start-now-btn").click(function(){
+    $("#start-now-btn").click(function() {
         showView("add-list-form");
     });
 
@@ -10,16 +10,16 @@ $(function(){
         showView("home-page");
     });
 
-    $("#lists").click(function () {
+    $("#lists").click(function() {
         showView("lists-page");
         listAllLists();
     });
 
-    $("#add-list").click(function () {
+    $("#add-list").click(function() {
         showView("add-list-form");
     });
 
-    $("#add-movie").click(function () {
+    $("#add-movie").click(function() {
         showView("add-movie-form");
         loadListNamesInSelect();
     });
@@ -118,13 +118,13 @@ function listAllLists() {
             let cardTitle = $("<h3>").addClass("card-title text-center");
 
             let linkElement = $("<a>")
-                                    .attr("href", "#")
-                                    .text(listObj[listKey].name);
+                .attr("href", "#")
+                .text(listObj[listKey].name);
 
             let cardListDescription = $("<i>")
-                                        .text((listObj[listKey].description === "") ? "No Description" : listObj[listKey].description); // checks if the is a description. If there isn't it displays "No description"
+                .text((listObj[listKey].description === "") ? "No Description" : listObj[listKey].description); // checks if the is a description. If there isn't it displays "No description"
 
-            linkElement.click(function () {
+            linkElement.click(function() {
                 if (checkObjIfEmpty(listObj[listKey].movies)) {
                     showMsg("No movies available in selected list.");
                 } else {
@@ -161,9 +161,9 @@ function loadListNamesInSelect() {
     for (let key in listNames) {
         if (listNames.hasOwnProperty(key)) {
             let option = $("<option>")
-                                    .val(key)
-                                    .text(listNames[key].name)
-                                    .appendTo(select);
+                .val(key)
+                .text(listNames[key].name)
+                .appendTo(select);
         }
     }
 }
@@ -204,34 +204,34 @@ function listMovies(listId, movieObj) {
             let tdDeleteButton = $("<td>");
 
             let deleteButton = $("<button>")
-                                        .text("Remove")
-                                        .addClass("btn btn-sm btn-danger")
-                                        .click(function () {
-                                            movieListManipulator.deleteMovie(listId, key);
+                .text("Remove")
+                .addClass("btn btn-sm btn-danger")
+                .click(function() {
+                    movieListManipulator.deleteMovie(listId, key);
 
-                                            $(this).parent().parent().remove();
+                    $(this).parent().parent().remove();
 
-                                            showMsg("Movie successfully removed!", "success");
-                                        });
+                    showMsg("Movie successfully removed!", "success");
+                });
 
             let upSpan = $("<span>")
-                                .addClass("glyphicon glyphicon-arrow-up")
-                                .click(function () {
+                .addClass("glyphicon glyphicon-arrow-up")
+                .click(function() {
 
-                                    let tr = $(this).parent().parent();
-                                    let previousSibling = tr.prev();
-                                    tr.insertBefore(previousSibling);
+                    let tr = $(this).parent().parent();
+                    let previousSibling = tr.prev();
+                    tr.insertBefore(previousSibling);
 
-                                });
+                });
 
 
             let downSpan = $("<span>")
-                                    .addClass("glyphicon glyphicon-arrow-down")
-                                    .click(function () {
-                                        let tr = $(this).parent().parent();
-                                        let nextSibling = tr.next();
-                                        tr.insertAfter(nextSibling);
-                                    });
+                .addClass("glyphicon glyphicon-arrow-down")
+                .click(function() {
+                    let tr = $(this).parent().parent();
+                    let nextSibling = tr.next();
+                    tr.insertAfter(nextSibling);
+                });
 
 
             tdDeleteButton.append(deleteButton);

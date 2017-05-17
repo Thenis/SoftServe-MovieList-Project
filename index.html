@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Movie List</title>
@@ -7,128 +8,123 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
+
 <body>
-
-<nav class="my-navbar navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Movie List</a>
+    <nav class="my-navbar navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Movie List</a>
+            </div>
+            <form class="navbar-form navbar-left" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="nav-links collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav row vdivide">
+                    <li><a id="home" href="#">Home</a></li>
+                    <li><a id="lists" href="#">Lists</a></li>
+                    <li><a id="add-list" href="#">Add list</a></li>
+                    <li><a id="add-movie" href="#">Add a movie</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="nav-links collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav row vdivide">
-                <li><a id="home" href="#">Home</a></li>
-                <li><a id="lists" href="#">Lists</a></li>
-                <li><a id="add-list" href="#">Add list</a></li>
-                <li><a id="add-movie" href="#">Add a movie</a></li>
-
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-
-<section id="success-alert" class="alert alert-success" role="alert">Success</section>
-
-<section id="error-alert" class="alert alert-danger" role="alert">Error</section>
-
-<section id="home-page">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="row">
-
-                    <img src="img/bg-image.png" alt="" class="img-responsive">
-
-                    <div class="carousel-caption">
-                        <h1>Organize your favourite movies</h1>
-                        <a id="start-now-btn" href="#" class="btn btn-lg btn-primary">Start now</a>
+        <!-- /.container-fluid -->
+    </nav>
+    <section id="success-alert" class="alert alert-success" role="alert">Success</section>
+    <section id="error-alert" class="alert alert-danger" role="alert">Error</section>
+    <section id="home-page">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="row">
+                        <img src="img/bg-image.png" alt="" class="img-responsive">
+                        <div class="carousel-caption">
+                            <h1>Organize your favourite movies</h1>
+                            <a id="start-now-btn" href="#" class="btn btn-lg btn-primary">Start now</a>
+                        </div>
+                        <div class="row"></div>
                     </div>
-                    <div class="row"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section id="lists-page">
-    <div id="list-container" class="container">
-        <h2 class="page-header">Lists</h2>
-        <div id="target-location" class="row">
-        <h3 class="text-center no-content"><i>No lists available</i></h3>
-            <!-- Lists get appended here -->
+    </section>
+    <section id="lists-page">
+        <div id="list-container" class="container">
+            <h2 class="page-header">Lists</h2>
+            <div id="target-location" class="row">
+                <h3 class="text-center no-content"><i>No lists available</i></h3>
+                <!-- Lists get appended here -->
+            </div>
         </div>
-    </div>
-</section>
-
-<section id="add-list-form">
-    <div class="container">
-        <h3 class="page-header">Add a new list</h3>
-        <form id="list-form" onsubmit="event.preventDefault(); addList();">
-            <div class="form-group">
-                <label class="list-movie-label" for="list-input">List name</label>
-                <input type="text" class="form-control" id="list-input" required>
-            </div>
-            <div class="form-group">
-                <label class="list-movie-label" for="list-descr">Description</label>
-                <textarea class="form-control" id="list-descr" placeholder="Optional"></textarea>
-            </div>
-            <input type="submit" class="btn btn-sm btn-primary" value="Add List"/>
-        </form>
-    </div>
-</section>
-
-<section id="add-movie-form">
-    <div class="container">
-        <h3 class="page-header">Add a movie to a list</h3>
-        <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
-            <div class="form-group">
-                <label class="list-movie-label" for="list-select">Select a list:</label>
-                <select id="list-select" class="form-control">
-                <option value="no-lists">No lists available</option>
-                    <!-- options get appended here -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="list-movie-label" for="movie-input">Movie name</label>
-                <input class="form-control" type="text" id="movie-input" required/>
-            </div>
-            <input type="submit" class="btn btn-sm btn-primary" value="Add Movie"/>
-        </form>
-    </div>
-</section>
-
-<section id="movie-page">
-    <div class="container">
-        <h2 id="movie-header" class="page-header"></h2>
-        <div class="table-responsive">
-            <table id="table" class="table">
-                <thead>
-                <tr>
-                    <th>Movie</th>
-                    <th>Up/Down</th>
-                    <th>Options</th>
-                </tr>
-                </thead>
-
-                <tbody id="movie-list">
-                </tbody>
-            </table>
+    </section>
+    <section id="add-list-form">
+        <div class="container">
+            <h3 class="page-header">Add a new list</h3>
+            <form id="list-form" onsubmit="event.preventDefault(); addList();">
+                <div class="form-group">
+                    <label class="list-movie-label" for="list-input">List name</label>
+                    <input type="text" class="form-control" id="list-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="list-movie-label" for="list-descr">Description</label>
+                    <textarea class="form-control" id="list-descr" placeholder="Optional"></textarea>
+                </div>
+                <input type="submit" class="btn btn-sm btn-primary" value="Add List" />
+            </form>
         </div>
-    </div>
-</section>
-<footer class="footer">&copy; MovieList 2017
-</footer>
-
+    </section>
+    <section id="add-movie-form">
+        <div class="container">
+            <h3 class="page-header">Add a movie to a list</h3>
+            <form id="movie-form" onsubmit="event.preventDefault(); addMovie();">
+                <div class="form-group">
+                    <label class="list-movie-label" for="list-select">Select a list:</label>
+                    <select id="list-select" class="form-control">
+                        <option value="no-lists">No lists available</option>
+                        <!-- options get appended here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="list-movie-label" for="movie-input">Movie name</label>
+                    <input class="form-control" type="text" id="movie-input" required/>
+                </div>
+                <input type="submit" class="btn btn-sm btn-primary" value="Add Movie" />
+            </form>
+        </div>
+    </section>
+    <section id="movie-page">
+        <div class="container">
+            <h2 id="movie-header" class="page-header"></h2>
+            <div class="table-responsive">
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Movie</th>
+                            <th>Up/Down</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movie-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">&copy; MovieList 2017
+    </footer>
 </body>
+
 </html>
