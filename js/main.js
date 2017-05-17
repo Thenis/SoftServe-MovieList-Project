@@ -1,55 +1,56 @@
-window.onload = function() {
+$(function(){
+
     showView("home-page");
 
-    document.getElementById("start-now-btn").addEventListener("click", function() {
+    $("#start-now-btn").click(function(){
         showView("add-list-form");
     });
-    document.getElementById("home").addEventListener("click", function() {
+
+    $("#home").click(function() {
         showView("home-page");
     });
 
-    document.getElementById("lists").addEventListener("click", function() {
+    $("#lists").click(function () {
         showView("lists-page");
         listAllLists();
     });
 
-    document.getElementById("add-list").addEventListener("click", function() {
+    $("#add-list").click(function () {
         showView("add-list-form");
     });
 
-    document.getElementById("add-movie").addEventListener("click", function() {
+    $("#add-movie").click(function () {
         showView("add-movie-form");
         loadListNamesInSelect();
     });
-};
+});
+
 
 function showView(view) {
-    let sections = document.getElementsByTagName("section");
+    let sections = $("section");
 
-    for (let section of sections) {
-        section.style.display = "none";
-    }
+    sections.hide();
 
-    document.getElementById(view).style.display = "";
-
+    $("#" + view).show();
 }
 
 function showMsg(msg, type) {
     let alert;
 
     if (type === "success") {
-        alert = document.getElementById("success-alert");
+        alert = $("#success-alert");
     } else {
-        alert = document.getElementById("error-alert");
+        alert = $("#error-alert");
     }
 
-    alert.style.display = "";
+    alert
+        .text(msg) // append msg
+        .show(); // show it
 
-    alert.innerText = msg;
 
     setTimeout(() => {
-        alert.style.display = "none";
-    }, 2000);
+        alert.fadeOut();
+    }, 2000); // alert fades out after 2s
 }
 
 function checkObjIfEmpty(obj) {
@@ -83,8 +84,8 @@ let movieListManipulator = (function() {
 })();
 
 function addList() {
-    let listNameInput = document.getElementById("list-input").value;
-    let listDescrInput = document.getElementById("list-descr").value;
+    let listNameInput = $("#list-input").val();
+    let listDescrInput = $("#list-descr").val();
 
     movieListManipulator.addList({
         name: listNameInput,
@@ -96,7 +97,7 @@ function addList() {
 }
 
 function listAllLists() {
-    let target = document.getElementById("target-location"); // location of where the lists will be appended
+    let target = $("#target-location"); // location of where the lists will be appended
 
     let listObj = movieListManipulator.getLists();
 
@@ -104,30 +105,26 @@ function listAllLists() {
         return;
     }
 
-    target.innerHTML = ""; // clear the target of children elements
+    target.empty(); // clear child elements
 
     for (let listKey in listObj) {
         if (listObj.hasOwnProperty(listKey)) {
-            let gridDiv = document.createElement("div");
-            gridDiv.className = "col-sm-6";
+            let gridDiv = $("<div>").addClass("col-sm-6");
 
-            let cardDiv = document.createElement("div");
-            cardDiv.className = "card";
+            let cardDiv = $("<div>").addClass("card");
 
-            let cardBlockDiv = document.createElement("div");
-            cardBlockDiv.className = "card-block center-block";
+            let cardBlockDiv = $("<div>").addClass("card-block center-block");
 
-            let cardTitle = document.createElement("h3");
-            cardTitle.className = "card-title text-center";
+            let cardTitle = $("<h3>").addClass("card-title text-center");
 
-            let linkElement = document.createElement("a");
-            linkElement.setAttribute("href", "#");
-            linkElement.innerText = listObj[listKey].name;
+            let linkElement = $("<a>")
+                                    .attr("href", "#")
+                                    .text(listObj[listKey].name);
 
-            let cardListDescription = document.createElement("i");
-            cardListDescription.innerText = (listObj[listKey].description === "") ? "No Description" : listObj[listKey].description;
+            let cardListDescription = $("<i>")
+                                        .text((listObj[listKey].description === "") ? "No Description" : listObj[listKey].description); // checks if the is a description. If there isn't it displays "No description"
 
-            linkElement.addEventListener("click", function() {
+            linkElement.click(function () {
                 if (checkObjIfEmpty(listObj[listKey].movies)) {
                     showMsg("No movies available in selected list.");
                 } else {
@@ -135,23 +132,23 @@ function listAllLists() {
                 }
             });
 
-            cardTitle.appendChild(linkElement);
+            cardTitle.append(linkElement);
 
-            cardBlockDiv.appendChild(cardTitle);
-            cardBlockDiv.appendChild(cardListDescription);
+            cardBlockDiv.append(cardTitle);
+            cardBlockDiv.append(cardListDescription);
 
-            cardDiv.appendChild(cardBlockDiv);
+            cardDiv.append(cardBlockDiv);
 
-            gridDiv.appendChild(cardDiv);
+            gridDiv.append(cardDiv);
 
-            target.appendChild(gridDiv);
+            target.append(gridDiv);
 
         }
     }
 }
 
 function loadListNamesInSelect() {
-    let select = document.getElementById("list-select");
+    let select = $("#list-select");
 
     let listNames = movieListManipulator.getLists();
 
@@ -159,24 +156,22 @@ function loadListNamesInSelect() {
         return;
     }
 
-    select.innerHTML = ""; // clear options
+    select.empty(); // empties all the its children
 
     for (let key in listNames) {
         if (listNames.hasOwnProperty(key)) {
-            let option = document.createElement("option");
-            option.value = key;
-            option.innerText = listNames[key].name;
-            select.appendChild(option);
+            let option = $("<option>")
+                                    .val(key)
+                                    .text(listNames[key].name)
+                                    .appendTo(select);
         }
-
     }
 }
 
 function addMovie() {
-    let movieName = document.getElementById("movie-input").value;
+    let movieName = $("#movie-input").val();
 
-    let select = document.getElementById("list-select");
-    let listId = select.options[select.selectedIndex].value;
+    let listId = $("#list-select :selected").val();
 
     if (listId === "no-lists") {
         showMsg("No lists available.", "error");
@@ -191,62 +186,65 @@ function addMovie() {
 }
 
 function listMovies(listId, movieObj) {
-    let tbody = document.getElementById("movie-list");
+    let tbody = $("#movie-list");
 
-    tbody.innerHTML = ""; // clear table child elements
-    document.getElementById("movie-header").innerText = `Movies in list - ${movieListManipulator.getListNameById(listId)}`;
+    tbody.empty(); // clear table child elements
+
+    $("#movie-header").text(`Movies in list - ${movieListManipulator.getListNameById(listId)}`);
 
     for (let key in movieObj) {
         if (movieObj.hasOwnProperty(key)) {
 
-            let tr = document.createElement("tr");
+            let tr = $("<tr>");
 
-            let tdMovie = document.createElement("td");
+            let tdMovie = $("<td>");
 
-            let tdUpDown = document.createElement("td");
+            let tdUpDown = $("<td>");
 
-            let tdDeleteButton = document.createElement("td");
+            let tdDeleteButton = $("<td>");
 
-            let deleteButton = document.createElement("button");
-            deleteButton.innerText = "Remove";
-            deleteButton.className = "btn btn-sm btn-danger";
+            let deleteButton = $("<button>")
+                                        .text("Remove")
+                                        .addClass("btn btn-sm btn-danger")
+                                        .click(function () {
+                                            movieListManipulator.deleteMovie(listId, key);
 
-            let upSpan = document.createElement("span");
-            upSpan.className = "glyphicon glyphicon-arrow-up";
-            upSpan.onclick = function() {
-                let tr = this.parentNode.parentNode;
-                let previousSibling = tr.previousSibling;
-                tbody.insertBefore(tr, previousSibling);
-            }
+                                            $(this).parent().parent().remove();
+
+                                            showMsg("Movie successfully removed!", "success");
+                                        });
+
+            let upSpan = $("<span>")
+                                .addClass("glyphicon glyphicon-arrow-up")
+                                .click(function () {
+
+                                    let tr = $(this).parent().parent();
+                                    let previousSibling = tr.prev();
+                                    tr.insertBefore(previousSibling);
+
+                                });
 
 
-            let downSpan = document.createElement("span");
-            downSpan.className = "glyphicon glyphicon-arrow-down";
-            downSpan.onclick = function() {
-                let tr = this.parentNode.parentNode;
-                let nextSibling = tr.nextSibling;
-                tbody.insertBefore(nextSibling, tr);
-            };
+            let downSpan = $("<span>")
+                                    .addClass("glyphicon glyphicon-arrow-down")
+                                    .click(function () {
+                                        let tr = $(this).parent().parent();
+                                        let nextSibling = tr.next();
+                                        tr.insertAfter(nextSibling);
+                                    });
 
-            deleteButton.onclick = function() {
-                movieListManipulator.deleteMovie(listId, key);
 
-                this.parentNode.parentNode.remove();
+            tdDeleteButton.append(deleteButton);
 
-                showMsg("Movie successfully removed!", "success");
-            };
+            tdMovie.text(movieObj[key].name);
+            tr.attr("id", key);
+            tdUpDown.append(upSpan);
+            tdUpDown.append(downSpan);
 
-            tdDeleteButton.appendChild(deleteButton);
-
-            tdMovie.innerText = movieObj[key].name;
-            tr.id = key;
-            tdUpDown.appendChild(upSpan);
-            tdUpDown.appendChild(downSpan);
-
-            tr.appendChild(tdMovie);
-            tr.appendChild(tdUpDown);
-            tr.appendChild(tdDeleteButton);
-            tbody.appendChild(tr);
+            tr.append(tdMovie);
+            tr.append(tdUpDown);
+            tr.append(tdDeleteButton);
+            tbody.append(tr);
 
             showView("movie-page");
         }
