@@ -38,28 +38,25 @@ function ajaxGet(queryString) {
         url: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${queryString}&page=1&include_adult=false`,
 
         dataType: "JSON"
-    }).then(function(movies){
+    }).then(function(movies) {
         console.log(movies.results);
         $("#movie-query-list").empty();
 
-        for(let movie of movies.results){
+        for (let movie of movies.results) {
             $("<li>")
                 .addClass("list-group-item list-group-item-action")
+                .append($("<img>").attr("src", (movie.poster_path === null ? "img/default-movie.png" : `https://image.tmdb.org/t/p/w45_and_h67_bestv2${movie.poster_path}`)))
                 .append($("<a>")
                     .attr("href", "#")
                     .text(movie.original_title)
-                    .click(function () {
+                    .click(function ()  {
                         addMovie($(this).text())
-                    })
-                    ).appendTo($("#movie-query-list"));
+                    }))
+                .appendTo($("#movie-query-list"));
         }
-        
-        
+
+
     });
-
-    
-
-    
 }
 
 function showView(view) {

@@ -219,3 +219,22 @@ table {
     position: absolute;
     width: 100%;
 }
+
+#movie-query-list {
+    max-height: 200px; 
+    overflow-y: scroll;
+}
+
+#movie-query-list li{   
+    background-color: #FFFFFF;
+}
+
+#movie-query-list li:hover{
+    background-color: #ecf0f1;
+}
+
+#movie-query-list li a{
+    text-decoration: none;
+    color: #222222;
+}
+
