@@ -8,6 +8,11 @@ $(function() {
 
     $("#home").click(function() {
         showView("home-page");
+        ajaxRegister()
+    });
+
+    $("#register").click(function() {
+        showView("register-page");
     });
 
     $("#lists").click(function() {
@@ -30,6 +35,36 @@ $(function() {
     })
 });
 
+// function ajaxLocalAPI() {
+//     $.ajax({
+//         method: "GET",
+//         url: "http://localhost:3000/lists",
+//         headers: {
+//             "x-auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTI3MTNlN2I1MzdlMjNkNzA0OGVjM2YiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDk1NzMzMjIzfQ.FOw4-q7dWveUzqsiisFNVtLJ7bRjWwMfiM0A_aZVwYM"
+//         },
+//         dataType: "JSON"
+//     }).then((result) => {
+//         console.log(result)
+//     })
+
+
+// }
+
+function ajaxRegister() {
+    let userData = {
+        username: "zxc",
+        password: "asd123"
+    };
+
+    $.ajax({
+        method: "POST",
+        url: 'http://localhost:3000/users',
+        data: userData,
+    }).then((res) => {
+        console.log(res)
+    })
+}
+
 function ajaxGet(queryString) {
     const apiKey = "87cdafe12d9bdca68ba01c573e34376f";
 
@@ -49,13 +84,11 @@ function ajaxGet(queryString) {
                 .append($("<a>")
                     .attr("href", "#")
                     .text(movie.original_title)
-                    .click(function ()  {
+                    .click(function() {
                         addMovie($(this).text())
                     }))
                 .appendTo($("#movie-query-list"));
         }
-
-
     });
 }
 

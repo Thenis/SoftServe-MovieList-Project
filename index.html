@@ -16,7 +16,8 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -29,16 +30,27 @@
                 <ul class="nav navbar-nav row vdivide">
                     <li><a id="home" href="#">Home</a></li>
                     <li><a id="lists" href="#">Lists</a></li>
+                    <li><a id="register" href="#">Register</a></li>
                     <li><a id="add-list" href="#">Add list</a></li>
                     <li><a id="add-movie" href="#">Add a movie</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="user-nav" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Thenis <span class="caret"></span></a>
+                        <ul id="user-dropdown" class="dropdown-menu">
+                            <li><a href="#">Log out</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+
     <section id="success-alert" class="alert alert-success" role="alert">Success</section>
     <section id="error-alert" class="alert alert-danger" role="alert">Error</section>
+
     <section id="home-page">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -55,6 +67,24 @@
             </div>
         </div>
     </section>
+
+    <section id="register-page">
+        <div class="container">
+            <h2 class="page-header">Register</h2>
+            <form id="register-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label class="username-label" for="username-input">Username</label>
+                    <input class="form-control" type="text" id="username-input" required/>
+                </div>
+                <div class="form-group">
+                    <label class="password-label" for="password-input">Password</label>
+                    <input class="form-control" type="password" id="password-input" required/>
+                </div>
+                <input type="submit" class="btn btn-sm btn-primary" value="Register" />
+            </form>
+        </div>
+    </section>
+
     <section id="lists-page">
         <div id="list-container" class="container">
             <h2 class="page-header">Lists</h2>
@@ -64,6 +94,7 @@
             </div>
         </div>
     </section>
+
     <section id="add-list-form">
         <div class="container">
             <h3 class="page-header">Add a new list</h3>
@@ -80,6 +111,7 @@
             </form>
         </div>
     </section>
+
     <section id="add-movie-form">
         <div class="container">
             <h3 class="page-header">Add a movie to a list</h3>
@@ -96,12 +128,12 @@
                     <input class="form-control" type="text" id="movie-input" required/>
                 </div>
                 <ul id="movie-query-list" class="list-group">
-                    
                 </ul>
                 <input type="submit" class="btn btn-sm btn-primary" value="Add Movie" />
             </form>
         </div>
     </section>
+
     <section id="movie-page">
         <div class="container">
             <h2 id="movie-header" class="page-header"></h2>
@@ -120,6 +152,7 @@
             </div>
         </div>
     </section>
+
     <footer class="footer">&copy; MovieList 2017
     </footer>
 </body>
